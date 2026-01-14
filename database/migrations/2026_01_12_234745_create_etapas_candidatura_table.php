@@ -13,14 +13,41 @@ return new class extends Migration
     {
         Schema::create('etapas_candidatura', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->foreignId('candidatura_id')
-              ->constrained('candidaturas')
-              ->onDelete('cascade');
-            $table->string('titulo_etapa',  255);
-            $table->string('descricao',  255);
-            $table->string('status');
-            $table->date('data_etapaa');
+                ->constrained('candidaturas')
+                ->cascadeOnDelete();
+            $table->enum('tipo_etapa', [
+                'triagem',
+                'teste_tecnico',
+                'teste_pratico',
+                'entrevista_rh',
+                'entrevista_tecnica',
+                'entrevista_gestor',
+                'entrevista_final',
+                'proposta',
+                'outro'
+            ]);
+            $table->string('titulo', 255);
+            $table->text('descricao')->nullable();
+            $table->enum('status', [
+                'agendado',
+                'em_andamento',
+                'concluido',
+                'aprovado',
+                'reprovado',
+                'cancelado'
+            ])->default('agendado');
+            $table->dateTime('data_agendada')->nullable();
+            $table->dateTime('data_realizada')->nullable();
+            $table->dateTime('data_resposta')->nullable();
+            $table->text('feedback_empresa')->nullable();
+            $table->text('feedback_pessoal')->nullable();
+            $table->integer('nota_auto_avaliacao')->nullable();
+            $table->string('entrevistadores')->nullable();
+            $table->integer('duracao_minutos')->nullable();
+            $table->timestamps();
+            $table->index(['candidatura_id', 'status']);
+            $table->index(['candidatura_id', 'data_agendada']);
         });
     }
 

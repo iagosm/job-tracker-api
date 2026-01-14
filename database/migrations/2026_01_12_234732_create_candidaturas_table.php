@@ -16,25 +16,38 @@ return new class extends Migration
               $table->foreignId('user_id')
                     ->constrained()
                     ->cascadeOnDelete();
-              $table->string('nome_vaga', 255);
+              $table->string('cargo', 255);
               $table->string('empresa', 255);
-              $table->string('plataforma', 255);
+              $table->foreignId('plataforma_id')->nullable()->constrained('plataformas');
               $table->text('link_vaga')->nullable();
               $table->enum('tipo_trabalho', ['remoto', 'presencial', 'hibrido']);
-              $table->string('localizacao')->nullable();
+              $table->string('localizacao', 255)->nullable();
+              $table->enum('nivel_vaga', ['estagio', 'junior', 'pleno', 'senior', 'especialista'])->nullable();
+              $table->decimal('salario_minimo', 10, 2)->nullable();
+              $table->decimal('salario_maximo', 10, 2)->nullable();
+              $table->boolean('salario_a_combinar')->default(false);
               $table->boolean('curriculo_visualizado')->default(false);
               $table->enum('status', [
-                  'aplicado',
-                  'em_analise',
-                  'entrevista',
-                  'proposta',
-                  'contratado',
-                  'rejeitado',
-                  'desistiu'
-              ])->default('aplicado');
+                'aplicado',
+                'em_analise',
+                'triagem',
+                'teste_tecnico',
+                'entrevista_rh',
+                'entrevista_tecnica',
+                'entrevista_final',
+                'proposta',
+                'contratado',
+                'rejeitado',
+                'desistiu'
+              ])->default('aplicado')->index();
               $table->date('data_aplicacao');
+              $table->date('data_resposta')->nullable();
+              $table->date('data_encerramento')->nullable();
               $table->text('observacoes')->nullable();
+              $table->text('requisitos')->nullable();
               $table->timestamps();
+              $table->index(['user_id', 'status', 'data_aplicacao']);
+              $table->index(['user_id', 'created_at']);
         });
     }
 
