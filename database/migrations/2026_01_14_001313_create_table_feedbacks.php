@@ -16,10 +16,10 @@ return new class extends Migration
             $table->foreignId('candidatura_id')
                 ->constrained('candidaturas')
                 ->cascadeOnDelete();
-            $table->foreignId('etapa_id')
-                ->nullable()
-                ->constrained('etapas_candidatura')
-                ->cascadeOnDelete();
+           $table->foreignId('etapa_id')
+              ->nullable()
+              ->constrained('etapas_candidatura')
+              ->cascadeOnDelete();
             $table->enum('tipo', ['empresa', 'pessoal']);
             $table->text('feedback');
             $table->integer('nota')->nullable(); // 1-5
@@ -45,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_feedbacks');
+       Schema::dropIfExists('feedbacks');
     }
 };

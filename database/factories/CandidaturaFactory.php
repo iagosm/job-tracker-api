@@ -16,15 +16,12 @@ class CandidaturaFactory extends Factory
     public function definition(): array
     {
         $salarioACombinar = $this->faker->boolean(30);
-
         $salarioMin = $salarioACombinar
             ? null
             : $this->faker->numberBetween(1500, 6000);
-
         $salarioMax = (!$salarioACombinar && $salarioMin)
             ? $salarioMin + $this->faker->numberBetween(500, 4000)
             : null;
-
         return [
             'user_id' => User::factory(),
             'plataforma_id' => Plataforma::inRandomOrder()->value('id'),

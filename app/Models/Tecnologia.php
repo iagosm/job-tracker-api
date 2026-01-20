@@ -7,5 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tecnologia extends Model
 {
-      use HasFactory;  
+      use HasFactory;
+      protected $table = "tecnologias"; 
+
+      protected $fillable = [
+        'nome',
+        'categoria',
+        'icone',
+    ];
 }
