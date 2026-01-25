@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TecnologiaRequest;
 use App\Models\Tecnologia;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class TecnologiaController extends Controller
 {

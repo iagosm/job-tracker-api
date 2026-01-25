@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PlataformaRequest;
 use App\Models\Plataforma;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class PlataformaController extends Controller
 {
@@ -21,7 +21,7 @@ class PlataformaController extends Controller
             $tecnologia = Plataforma::create($validate)->toArray();
             return $this->sendSuccess('Plataforma criada com sucesso!', Response::HTTP_CREATED, $tecnologia);
         } catch (\Throwable $th) {
-            return $this->sendError('Plataforma não encontrada!', Response::HTTP_NOT_FOUND);
+            return $this->sendError('Falha ao criar plataforma!', Response::HTTP_NOT_FOUND);
         }
     }
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCandidaturaRequest;
 use App\Models\Candidatura;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 class CandidaturaController extends Controller
 {
@@ -12,6 +12,16 @@ class CandidaturaController extends Controller
     {
         $candidaturas = Candidatura::all()->toArray();
         return $this->sendSuccess('', Response::HTTP_OK, $candidaturas);
+    }
+
+    public function metrics()
+    {
+      
+    }
+
+    public function analytics()
+    {
+      
     }
 
     public function create(StoreCandidaturaRequest $request)

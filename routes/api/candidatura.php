@@ -3,6 +3,7 @@ use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\CandidaturaController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PlataformaController;
 use App\Http\Controllers\TecnologiaController;
 use Illuminate\Http\Request;
@@ -26,5 +27,10 @@ Route::prefix('/auth')->name('auth.')->group(function(){
     Route::post('/plataforma', [PlataformaController::class, 'create'])->name('plataforma.create');
     Route::put('/plataforma/{id}', [PlataformaController::class, 'update'])->name('plataforma.update');
     Route::delete('/plataforma/{id}', [PlataformaController::class, 'delete'])->name('plataforma.delete');
+
+    // Route::get('/feedbacks', [FeedbackController::class, 'getAll'])->name('feedback');
+    Route::post('/feedback', [FeedbackController::class, 'create'])->name('feedback.create');
+    Route::put('/feedback/{id}', [FeedbackController::class, 'update'])->name('feedback.update');
+    Route::delete('/feedback/{id}', [FeedbackController::class, 'delete'])->name('feedback.delete');
   });
 });
