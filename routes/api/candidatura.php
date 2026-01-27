@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\CandidaturaController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PlataformaController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TecnologiaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,5 +33,9 @@ Route::prefix('/auth')->name('auth.')->group(function(){
     Route::post('/feedback', [FeedbackController::class, 'create'])->name('feedback.create');
     Route::put('/feedback/{id}', [FeedbackController::class, 'update'])->name('feedback.update');
     Route::delete('/feedback/{id}', [FeedbackController::class, 'delete'])->name('feedback.delete');
+    
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'delete'])->name('profile.delete');
   });
 });

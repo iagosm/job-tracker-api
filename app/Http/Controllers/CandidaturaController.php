@@ -2,23 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CandidaturaFilterRequest;
 use App\Http\Requests\StoreCandidaturaRequest;
 use App\Models\Candidatura;
 use Symfony\Component\HttpFoundation\Response;
 
 class CandidaturaController extends Controller
 {
-    public function getAll()
+    public function getAll(CandidaturaFilterRequest $request)
     {
-        $candidaturas = Candidatura::all()->toArray();
+        $perPage = $request->get('per_page', 10);
+        $candidaturas = Candidatura::query()
+            ->filter($request->validated())
+            ->paginate($perPage)->toArray();
         return $this->sendSuccess('', Response::HTTP_OK, $candidaturas);
     }
 
+    /**
+     * Métricas básicas do dashboard (carrega rápido na home).
+     * Uso: Cards principais da página inicial
+     */
     public function metrics()
     {
       
     }
 
+    /**
+     * Análises detalhadas e gráficos (página completa de analytics).
+     * Uso: Página dedicada de análises e insights
+     */
     public function analytics()
     {
       
