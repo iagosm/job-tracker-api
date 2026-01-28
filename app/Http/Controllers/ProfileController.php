@@ -23,8 +23,11 @@ class ProfileController extends Controller
     public function update(ProfileRequest $request)
     {
         try {
+            $user = $request->user();
+            if (!$user->can('update', $user)) {
+                return $this->sendError('Você não tem permissão para atualizar este usuário', Response::HTTP_FORBIDDEN);
+            }
             $validated = $request->validated();
-            $user = User::find(auth()->user()->id);
             if (!empty($validated['password'])) {
                 $validated['password'] = Hash::make($validated['password']);
             } else {
@@ -41,6 +44,9 @@ class ProfileController extends Controller
     {
         try {
             $user = $request->user();
+            if (!$user->can('delete', $user)) {
+                return $this->sendError('Você não tem permissão para deletar este usuário', Response::HTTP_FORBIDDEN);
+            }
             $user->tokens()->delete();
             $user->delete();
             return $this->sendSuccess('Usuário deletado com sucesso', Response::HTTP_OK);
