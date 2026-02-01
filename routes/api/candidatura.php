@@ -37,5 +37,11 @@ Route::prefix('/auth')->name('auth.')->group(function(){
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'delete'])->name('profile.delete');
+    
+
+    // Análises simples
+    Route::get('/candidaturas/metrics', [CandidaturaController::class, 'metrics']);
+    // Análises detalhadas e gráficos
+    Route::get('/candidaturas/analytics', [CandidaturaController::class, 'analytics']);
   });
 });
